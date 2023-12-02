@@ -31,7 +31,7 @@ void printProcessRow(const Process *process) {
 
 
 void printProcessTable(const Process *processes, int numberOfProcesses) {
-    printTableHeader("Processes Table", processInformationArray, lengthOfProcessInformationArray);
+    printTableHeader("Processes Models", processInformationArray, lengthOfProcessInformationArray);
     for (int i = 0; i < numberOfProcesses; ++i)
         printProcessRow(&processes[i]);
 }

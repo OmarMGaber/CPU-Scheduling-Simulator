@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "process.h"
+#include "Models/process.h"
 
 void printGanttChart(const Process *processes, int numberOfProcesses) {
         printf("Gantt Chart: \n");

@@ -2,14 +2,14 @@
 // Created by Omar on 01/12/2023.
 //
 
-#include <stdio.h>
-#include "../process.h"
 
+#include "../Models/process.h"
 
 Process *firstComeFirstServe(NewProcess *newProcess, int numOfProcesses) {
-    UnitTime currentTime = 0, waitTime = 0;
+//    UnitTime currentTime = (neglectContextSwitching) ? newProcess[0].arrivalTime: 0;
     Process *processes = malloc(sizeof(Process) * numOfProcesses);
-
+    UnitTime currentTime = 0;
+    UnitTime waitTime = 0;
     for (int i = 0; i < numOfProcesses; i++) {
         processes[i].arrivalTime = newProcess[i].arrivalTime;
         processes[i].processID = newProcess[i].processID;

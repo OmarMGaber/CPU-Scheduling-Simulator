@@ -6,7 +6,7 @@
 #define CPU_SCHEDULING_SIMULATOR_UTILITIES_H
 
 #include <stdio.h>
-#include "process.h"
+#include "Models/process.h"
 
 void printGanttChart(const Process *processes, int numberOfProcesses);
 

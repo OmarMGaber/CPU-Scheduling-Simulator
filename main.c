@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "process.h"
-#include "schedulers.h"
+#include "Models/process.h"
+#include "Schedulers/schedulers.h"
 #include "utilities.h"
 
 int main() {
@@ -19,6 +19,8 @@ int main() {
 
     free(processes);
 
+    neglectContextSwitching = false;
+    printf("\n\n\n");
     processes = firstComeFirstServe(newProcesses, sizeof newProcesses / sizeof newProcesses[0]);
     printProcessTable(processes, sizeof newProcesses / sizeof newProcesses[0]);
 
