@@ -12,4 +12,11 @@ add_executable(CPU_Scheduling_Simulator main.c
         Schedulers/schedulers.c
         utilities.c
         utilities.h
+        Collections/hashmap.h
+        Collections/mergeSort.h
+        Collections/priorityQueue.h
+        Collections/priorityQueue.c
+        Collections/compareFunctions.h
+        Collections/compareFunctions.h
+        Collections/compareFunctions.c
 )

@@ -3,43 +3,15 @@
 //
 
 #include <stdio.h>
-#include "Models/process.h"
+#include "utilities.h"
 
-void printGanttChart(const Process *processes, int numberOfProcesses) {
-        printf("Gantt Chart: \n");
-
-        printf(" ");
-        for (int i = 0; i < numberOfProcesses; ++i) {
-            for (int j = 0; j < processes[i].burstTime; ++j)
-                printf("__");
-            printf(" ");
-        }
-
-        printf("\n|");
-        for (int i = 0; i < numberOfProcesses; ++i) {
-            for (int j = 0; j < processes[i].burstTime - 1; ++j)
-                printf(" ");
-            printf("P%d", processes[i].processID);
-            for (int j = 0; j < processes[i].burstTime - 1; ++j)
-                printf(" ");
-            printf("|");
-        }
-
-        printf("\n ");
-        for (int i = 0; i < numberOfProcesses; ++i) {
-            for (int j = 0; j < processes[i].burstTime; ++j)
-                printf("--");
-            printf(" ");
-        }
-        printf("\n");
-
-        printf("0");
-        for (int i = 0; i < numberOfProcesses; ++i) {
-            for (int j = 0; j < processes[i].burstTime; ++j)
-                printf("  ");
-            if (processes[i].completionTime > 9)
-                printf("\b");
-            printf("%d", processes[i].completionTime);
-        }
-        printf("\n");
+int getAndValidateUserInput(char *requestMessage, char *errorMessage, int lowerBound, int upperBound) {
+    int input;
+    if (requestMessage != NULL)
+        printf("%s\n", requestMessage);
+    while (scanf("%d", &input) != 1 || input < lowerBound || input > upperBound) {
+        printf("%s\n", errorMessage);
+        while (getchar() != '\n');
+    }
+    return input;
 }

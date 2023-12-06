@@ -16,7 +16,7 @@ void printTableDivider(tableInformation *informationArray, int numberOfColumns) 
     printf("\n");
 }
 
-void printTableHeader(char* header, tableInformation *informationArray, int numberOfColumns) {
+void printTableHeader(char *header, tableInformation *informationArray, int numberOfColumns) {
     printf("%s: \n", header);
     printTableDivider(informationArray, numberOfColumns);
     printf("|");
@@ -27,7 +27,6 @@ void printTableHeader(char* header, tableInformation *informationArray, int numb
     printTableDivider(informationArray, numberOfColumns);
 }
 
-void printTable(char* header, tableInformation *informationArray, int numberOfColumns) {
-    printTableDivider(informationArray, numberOfColumns);
-    printTableHeader(header, informationArray, numberOfColumns);
+// TODO: Implement this function to print a full table generically
+void printTable(char *header, tableInformation *informationArray, int numberOfColumns) {
 }

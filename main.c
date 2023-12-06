@@ -1,30 +1,38 @@
 #include <stdio.h>
+#include <string.h>
 #include "Models/process.h"
 #include "Schedulers/schedulers.h"
 #include "utilities.h"
+#include "Collections/priorityQueue.h"
+
+// Compare function for char arrays
+int compareChar(const void *a, const void *b) {
+    return (*(char *) a - *(char *) b);
+}
 
 int main() {
-    Process *processes;
 
-    NewProcess newProcesses[] = {
-            {1, 0, 24},
-            {2, 0, 3},
-            {3, 0, 3}
-    };
+    PriorityQueue *pqGreater = createPriorityQueue(greaterInt);
+    PriorityQueue *pqSmaller = createPriorityQueue(smallerInt);
+    int arr[] = {10, 7, 8, 9, 1, 5};
 
-    printf("First Come First Serve\n");
-    processes = firstComeFirstServe(newProcesses, sizeof newProcesses / sizeof newProcesses[0]);
-    printGanttChart(processes, sizeof newProcesses / sizeof newProcesses[0]);
-    printProcessTable(processes, sizeof newProcesses / sizeof newProcesses[0]);
+    for (int i = 0; i < getArrayLength(arr); ++i) {
+        push(pqGreater, &arr[i]);
+        push(pqSmaller, &arr[i]);
+    }
 
-    free(processes);
+    printf("pqGreater: ");
+    for (int i = 0; i < getArrayLength(arr); ++i) {
+        printf("%d ", *(int *) top(pqGreater));
+        pop(pqGreater);
+    }
 
-    neglectContextSwitching = false;
-    printf("\n\n\n");
-    processes = firstComeFirstServe(newProcesses, sizeof newProcesses / sizeof newProcesses[0]);
-    printProcessTable(processes, sizeof newProcesses / sizeof newProcesses[0]);
+    printf("\npqSmaller: ");
+    for (int i = 0; i < getArrayLength(arr); ++i) {
+        printf("%d ", *(int *) top(pqSmaller));
+        pop(pqSmaller);
+    }
 
 
-//    freeProcesses(processes, 5);
     return 0;
 }

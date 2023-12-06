@@ -35,3 +35,27 @@ void printProcessTable(const Process *processes, int numberOfProcesses) {
     for (int i = 0; i < numberOfProcesses; ++i)
         printProcessRow(&processes[i]);
 }
+
+int compareByArrivalTime(const void *process1, const void *process2) {
+    return ((Process *) process1)->arrivalTime - ((Process *) process2)->arrivalTime;
+}
+
+int compareByBurstTime(const void *process1, const void *process2) {
+    return ((Process *) process1)->burstTime - ((Process *) process2)->burstTime;
+}
+
+int compareByRemainingTime(const void *process1, const void *process2) {
+    return ((Process *) process1)->remainingTime - ((Process *) process2)->remainingTime;
+}
+
+int compareByPriority(const void *process1, const void *process2) {
+    return ((Process *) process1)->priority - ((Process *) process2)->priority;
+}
+
+int compareByResponseRatio(const void *process1, const void *process2) {
+    return ((Process *) process1)->responseTime - ((Process *) process2)->responseTime;
+}
+
+int compareByProcessID(const void *process1, const void *process2) {
+    return ((Process *) process1)->processID - ((Process *) process2)->processID;
+}

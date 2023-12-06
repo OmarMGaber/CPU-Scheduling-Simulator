@@ -34,7 +34,7 @@ typedef struct {
     UnitTime waitingTime;
     UnitTime turnaroundTime;
     UnitTime completionTime;
-//    UnitTime remainingTime;
+    UnitTime remainingTime;
 } Process;
 
 typedef struct {
@@ -48,5 +48,17 @@ void initializeProcess(Process *process, int arrivalTime, int burstTime);
 void printProcessRow(const Process *process);
 
 void printProcessTable(const Process *processes, int numberOfProcesses);
+
+int compareByArrivalTime(const void *process1, const void *process2);
+
+int compareByBurstTime(const void *process1, const void *process2);
+
+int compareByRemainingTime(const void *process1, const void *process2);
+
+int compareByPriority(const void *process1, const void *process2);
+
+int compareByResponseRatio(const void *process1, const void *process2);
+
+int compareByProcessID(const void *process1, const void *process2);
 
 #endif //CPU_SCHEDULING_SIMULATOR_PROCESS_H

@@ -8,12 +8,38 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "../Models/process.h"
+#include "../utilities.h"
 
-#define bool short
-#define true (short)1
-#define false (short)0
 
-static bool neglectContextSwitching = true;
+// scheduler exit codes and messages
+#define OUT_OF_MEMORY_ERROR_MESSAGE "Out of memory."
+#define FirstComeFirstServe_EXIT_CODE (-201)
+#define ShortestJobFirst_EXIT_CODE (-202)
+#define ShortestRemainingTimeFirst_EXIT_CODE (-203)
+#define RoundRobin_EXIT_CODE (-204)
+#define HighestResponseRatioNext_EXIT_CODE (-205)
+#define LongestJobFirst_EXIT_CODE (-206)
+#define MultilevelQueueScheduling_EXIT_CODE (-207)
+#define MultilevelFeedbackQueueScheduling_EXIT_CODE (-208)
+#define PriorityScheduling_EXIT_CODE (-209)
+
+typedef enum {
+    FirstComeFirstServe = 1,
+    ShortestJobFirst,
+    ShortestRemainingTimeFirst,
+    PriorityScheduling,
+    RoundRobin,
+    HighestResponseRatioNext,
+    LongestJobFirst,
+    MultilevelQueueScheduling,
+
+    NumberOfSchedulingAlgorithms
+} SchedulingAlgorithm;
+
+
+static int neglectContextSwitching = 1;
+
+void printGanttChart(const Process *processes, int numberOfProcesses);
 
 Process *firstComeFirstServe(NewProcess *newProcess, int numOfProcesses, UnitTime *waitTime);
 
