@@ -1,38 +1,45 @@
 #include <stdio.h>
 #include <string.h>
 #include "Models/process.h"
-#include "Schedulers/schedulers.h"
 #include "utilities.h"
 #include "Collections/priorityQueue.h"
+#include "Schedulers/schedulers.h"
+#include "Models/ganttChart.h"
+#include "Collections/linkedList.h"
 
-// Compare function for char arrays
-int compareChar(const void *a, const void *b) {
-    return (*(char *) a - *(char *) b);
+
+char *toStringProcess(void *element) {
+    Process *ptr = (Process *) element;
+    char *string = (char *) malloc(sizeof(char) * 100);
+    ENSURE_NON_NULL(string, OUT_OF_MEMORY_ERROR_MESSAGE, EXIT_FAILURE)
+
+    sprintf(string, "\nProcess ID: %d, Arrival Time: %d, Burst Time: %d, Remaining Time: %d, Priority: %d\n",
+            ptr->processID, ptr->arrivalTime, ptr->burstTime, ptr->remainingTime, ptr->priority);
+
+    return string;
 }
+
 
 int main() {
 
-    PriorityQueue *pqGreater = createPriorityQueue(greaterInt);
-    PriorityQueue *pqSmaller = createPriorityQueue(smallerInt);
-    int arr[] = {10, 7, 8, 9, 1, 5};
+    // test the first come first serve algorithm
+    Process *processes = (Process *) malloc(sizeof(Process) * 4);
+    ENSURE_NON_NULL(processes, OUT_OF_MEMORY_ERROR_MESSAGE, EXIT_FAILURE)
 
-    for (int i = 0; i < getArrayLength(arr); ++i) {
-        push(pqGreater, &arr[i]);
-        push(pqSmaller, &arr[i]);
-    }
+    initializeProcess(&processes[0], 0, 24);
+    initializeProcess(&processes[1], 0, 3);
+    initializeProcess(&processes[2], 0, 3);
+//    initializeProcess(&processes[3], 0, 600);
 
-    printf("pqGreater: ");
-    for (int i = 0; i < getArrayLength(arr); ++i) {
-        printf("%d ", *(int *) top(pqGreater));
-        pop(pqGreater);
-    }
 
-    printf("\npqSmaller: ");
-    for (int i = 0; i < getArrayLength(arr); ++i) {
-        printf("%d ", *(int *) top(pqSmaller));
-        pop(pqSmaller);
-    }
+    PriorityQueue *processQueue = createPriorityQueue(greaterBurstTime);
+    for (int i = 0; i < 3; ++i)
+        push(processQueue, &processes[i]);
 
+    int waitTime = 0;
+
+    LinkedList *ganttChart = firstComeFirstServe(processQueue, &waitTime);
+    printGanttChart(ganttChart, 2);
 
     return 0;
 }

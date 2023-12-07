@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "priorityQueue.h"
+#include "../utilities.h"
 #include <string.h>
 
 void heapifyUp(PriorityQueue *pq, int childIndex);
@@ -106,7 +107,7 @@ void printHeapTree(PriorityQueue *pq, char *(*toStringFunction)(void *)) {
     int index = 0;
     while (index < pq->size) {
         for (int i = 0; i < levelSize && index < pq->size; i++) {
-            printf("%s ", toStringFunction(pq->heapArray[index]));
+            printf("%d ", *(int *) pq->heapArray[index]);
             index++;
         }
         printf("\n");

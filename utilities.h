@@ -8,6 +8,15 @@
 #include <stdio.h>
 #include "Models/process.h"
 
+
+#define OUT_OF_MEMORY_ERROR_MESSAGE "Out of memory."
+#define REPORT_ERROR_AND_EXIT(MESSAGE, EXIT_CODE) fprintf(stderr, MESSAGE); \
+                                                                exit(EXIT_CODE);
+#define ENSURE_NON_NULL(ptr, MESSAGE, EXIT_CODE) if (ptr == NULL) { \
+                                                    fprintf(stderr, MESSAGE); \
+                                                    exit(EXIT_CODE); \
+                                                }
+
 //typedef enum {
 //    False = 0, True = 1
 //} boolean;
@@ -30,8 +39,8 @@
 
 // program function-like macros
 #define getArrayLength(ARRAY) ((sizeof (ARRAY))/(sizeof *(ARRAY)))
-#define MAX(a, b) ((a > b)? a : b)
-#define MIN(a, b) ((a > b)? a : b)
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int getAndValidateUserInput(char *requestMessage, char *errorMessage, int lowerBound, int upperBound);
 

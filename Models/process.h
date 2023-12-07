@@ -37,28 +37,34 @@ typedef struct {
     UnitTime remainingTime;
 } Process;
 
-typedef struct {
-    int processID;
-    UnitTime arrivalTime;
-    UnitTime burstTime;
-} NewProcess;
-
 void initializeProcess(Process *process, int arrivalTime, int burstTime);
 
 void printProcessRow(const Process *process);
 
 void printProcessTable(const Process *processes, int numberOfProcesses);
 
-int compareByArrivalTime(const void *process1, const void *process2);
+int lowestArrivalTime(const void *process1, const void *process2);
 
-int compareByBurstTime(const void *process1, const void *process2);
+int lowestBurstTime(const void *process1, const void *process2);
 
-int compareByRemainingTime(const void *process1, const void *process2);
+int lowestRemainingTime(const void *process1, const void *process2);
 
-int compareByPriority(const void *process1, const void *process2);
+int lowestPriority(const void *process1, const void *process2);
 
-int compareByResponseRatio(const void *process1, const void *process2);
+int lowestResponseRatio(const void *process1, const void *process2);
 
-int compareByProcessID(const void *process1, const void *process2);
+int smallerProcessID(const void *process1, const void *process2);
+
+int greaterProcessID(const void *process1, const void *process2);
+
+int greaterArrivalTime(const void *process1, const void *process2);
+
+int greaterBurstTime(const void *process1, const void *process2);
+
+int greaterRemainingTime(const void *process1, const void *process2);
+
+int higherPriority(const void *process1, const void *process2);
+
+int higherResponseRatio(const void *process1, const void *process2);
 
 #endif //CPU_SCHEDULING_SIMULATOR_PROCESS_H

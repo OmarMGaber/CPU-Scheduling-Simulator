@@ -7,6 +7,14 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+                "Models/process.c",
+                "Models/table.c",
+                "Schedulers/schedulers.c",
+                "utilities.c",
+                "Collections/priorityQueue.c",
+                "Collections/compareFunctions.c",
+                "Models/ganttChart.c",
+                "Collections/linkedList.c",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"

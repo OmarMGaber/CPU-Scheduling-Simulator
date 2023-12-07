@@ -11,15 +11,7 @@
 #include "compareFunctions.h"
 #include "../utilities.h"
 
-// priority queue exit codes and messages
 #define EMPTY_PRIORITY_QUEUE_ERROR_MESSAGE "Priority queue is empty."
-#define OUT_OF_MEMORY_ERROR_MESSAGE "Out of memory."
-#define REPORT_ERROR_AND_EXIT(MESSAGE, EXIT_CODE) fprintf(stderr, MESSAGE); \
-                                                                exit(EXIT_CODE);
-#define ENSURE_NON_NULL(ptr, MESSAGE, EXIT_CODE) if (ptr == NULL) { \
-                                                    fprintf(stderr, MESSAGE); \
-                                                    exit(EXIT_CODE); \
-                                                }
 
 // priority queue function-like macros and constants
 #define DEFAULT_PRIORITY_QUEUE_CAPACITY 100
@@ -66,7 +58,7 @@ char *toString(PriorityQueue *pq, char *(*toStringFunction)(void *));
 
 void display(PriorityQueue *pq, char *(*toStringFunction)(void *));
 
-//void heapSort(void *array, size_t size, size_t sizeOfElement, CompareFunction compare);
+void heapSort(void *array, size_t size, size_t sizeOfElement, CompareFunction compare);
 
 void destroy(PriorityQueue *pq);
 

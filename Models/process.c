@@ -15,6 +15,7 @@ void initializeProcess(Process *process, int arrivalTime, int burstTime) {
     process->waitingTime = 0;
     process->responseTime = 0;
     process->priority = 0;
+
 }
 
 void printProcessRow(const Process *process) {
@@ -31,31 +32,56 @@ void printProcessRow(const Process *process) {
 
 
 void printProcessTable(const Process *processes, int numberOfProcesses) {
-    printTableHeader("Processes Models", processInformationArray, lengthOfProcessInformationArray);
+    printTableHeader("Processes Details", processInformationArray, lengthOfProcessInformationArray);
     for (int i = 0; i < numberOfProcesses; ++i)
         printProcessRow(&processes[i]);
 }
 
-int compareByArrivalTime(const void *process1, const void *process2) {
+int lowestArrivalTime(const void *process1, const void *process2) {
     return ((Process *) process1)->arrivalTime - ((Process *) process2)->arrivalTime;
 }
 
-int compareByBurstTime(const void *process1, const void *process2) {
+int greaterArrivalTime(const void *process1, const void *process2) {
+    return -lowestArrivalTime(process1, process2);
+}
+
+int lowestBurstTime(const void *process1, const void *process2) {
     return ((Process *) process1)->burstTime - ((Process *) process2)->burstTime;
 }
 
-int compareByRemainingTime(const void *process1, const void *process2) {
+int greaterBurstTime(const void *process1, const void *process2) {
+    return -lowestBurstTime(process1, process2);
+}
+
+int lowestRemainingTime(const void *process1, const void *process2) {
     return ((Process *) process1)->remainingTime - ((Process *) process2)->remainingTime;
 }
 
-int compareByPriority(const void *process1, const void *process2) {
+int greaterRemainingTime(const void *process1, const void *process2) {
+    return -lowestRemainingTime(process1, process2);
+}
+
+int lowestPriority(const void *process1, const void *process2) {
     return ((Process *) process1)->priority - ((Process *) process2)->priority;
 }
 
-int compareByResponseRatio(const void *process1, const void *process2) {
+int higherPriority(const void *process1, const void *process2) {
+    return -lowestPriority(process1, process2);
+}
+
+int lowestResponseRatio(const void *process1, const void *process2) {
     return ((Process *) process1)->responseTime - ((Process *) process2)->responseTime;
 }
 
-int compareByProcessID(const void *process1, const void *process2) {
+int higherResponseRatio(const void *process1, const void *process2) {
+    return -lowestResponseRatio(process1, process2);
+}
+
+int smallerProcessID(const void *process1, const void *process2) {
     return ((Process *) process1)->processID - ((Process *) process2)->processID;
 }
+
+int greaterProcessID(const void *process1, const void *process2) {
+    return -smallerProcessID(process1, process2);
+}
+

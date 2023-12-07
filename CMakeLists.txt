@@ -19,4 +19,9 @@ add_executable(CPU_Scheduling_Simulator main.c
         Collections/compareFunctions.h
         Collections/compareFunctions.h
         Collections/compareFunctions.c
+        Models/ganttChart.c
+        Models/ganttChart.h
+        Models/ganttChart.h
+        Collections/linkedList.c
+        Collections/linkedList.h
 )

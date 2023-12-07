@@ -8,20 +8,9 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "../Models/process.h"
+#include "../Collections/priorityQueue.h"
 #include "../utilities.h"
-
-
-// scheduler exit codes and messages
-#define OUT_OF_MEMORY_ERROR_MESSAGE "Out of memory."
-#define FirstComeFirstServe_EXIT_CODE (-201)
-#define ShortestJobFirst_EXIT_CODE (-202)
-#define ShortestRemainingTimeFirst_EXIT_CODE (-203)
-#define RoundRobin_EXIT_CODE (-204)
-#define HighestResponseRatioNext_EXIT_CODE (-205)
-#define LongestJobFirst_EXIT_CODE (-206)
-#define MultilevelQueueScheduling_EXIT_CODE (-207)
-#define MultilevelFeedbackQueueScheduling_EXIT_CODE (-208)
-#define PriorityScheduling_EXIT_CODE (-209)
+#include "../Collections/linkedList.h"
 
 typedef enum {
     FirstComeFirstServe = 1,
@@ -39,24 +28,24 @@ typedef enum {
 
 static int neglectContextSwitching = 1;
 
-void printGanttChart(const Process *processes, int numberOfProcesses);
+//void printGanttChart(const Process *processes, int numberOfProcesses);
 
-Process *firstComeFirstServe(NewProcess *newProcess, int numOfProcesses, UnitTime *waitTime);
+LinkedList* firstComeFirstServe(PriorityQueue *processQueue, UnitTime *waitTime);
 
-Process *shortestJobFirst(NewProcess *newProcess, int numOfProcesses);
+void shortestJobFirst(PriorityQueue *processQueue);
 
-Process *shortestRemainingTimeFirst(NewProcess *newProcess, int numOfProcesses);
+void shortestRemainingTimeFirst(PriorityQueue *processQueue);
 
-Process *roundRobin(NewProcess *newProcess, int numOfProcesses, UnitTime quantum);
+void roundRobin(PriorityQueue *processQueue, UnitTime quantum);
 
-Process *highestResponseRatioNext(NewProcess *newProcess, int numOfProcesses);
+void highestResponseRatioNext(PriorityQueue *processQueue);
 
-Process *longestJobFirst(NewProcess *newProcess, int numOfProcesses);
+void longestJobFirst(PriorityQueue *processQueue);
 
-Process *multilevelQueueScheduling(NewProcess *newProcess, int numOfProcesses);
+void multilevelQueueScheduling(PriorityQueue *processQueue);
 
-Process *multilevelFeedbackQueueScheduling(NewProcess *newProcess, int numOfProcesses);
+void multilevelFeedbackQueueScheduling(PriorityQueue *processQueue);
 
-Process *priorityScheduling(NewProcess *newProcess, int numOfProcesses);
+void priorityScheduling(PriorityQueue *processQueue);
 
 #endif //CPU_SCHEDULING_SIMULATOR_SCHEDULERS_H
