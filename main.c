@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     if (numberOfProcesses < 0)
         THROW_EXCEPTION(EXIT_FAILURE, "Invalid number of processes");
     if (numberOfProcesses > 10000)
-        THROW_EXCEPTION(EXIT_FAILURE, "More than 10000 processes, What are you trying to do?");
+        THROW_EXCEPTION(EXIT_FAILURE, "More than 10000 processes!, What are you trying to do?");
 
     Process *processes = (Process *) malloc(sizeof(Process) * numberOfProcesses);
     ENSURE_ALLOCATED_ELSE_REPORT_ERROR(processes, MEMORY_ALLOCATION_ERROR_MESSAGE);

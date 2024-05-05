@@ -24,4 +24,6 @@ add_executable(CPU_Scheduling_Simulator main.c
         collections/linkedList.h
         utils/exceptions.h
         utils/exceptions.c
+        parser/parser.c
+        parser/parser.h
 )

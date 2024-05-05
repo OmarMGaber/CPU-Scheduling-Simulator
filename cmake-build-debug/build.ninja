@@ -103,6 +103,12 @@ build CMakeFiles/CPU_Scheduling_Simulator.dir/utils/exceptions.c.obj: C_COMPILER
   OBJECT_DIR = CMakeFiles\CPU_Scheduling_Simulator.dir
   OBJECT_FILE_DIR = CMakeFiles\CPU_Scheduling_Simulator.dir\utils
 
+build CMakeFiles/CPU_Scheduling_Simulator.dir/parser/parser.c.obj: C_COMPILER__CPU_Scheduling_Simulator_unscanned_Debug E$:/Projects/C/CPU-Scheduling-Simulator/parser/parser.c || cmake_object_order_depends_target_CPU_Scheduling_Simulator
+  DEP_FILE = CMakeFiles\CPU_Scheduling_Simulator.dir\parser\parser.c.obj.d
+  FLAGS = -g -std=gnu2x -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\CPU_Scheduling_Simulator.dir
+  OBJECT_FILE_DIR = CMakeFiles\CPU_Scheduling_Simulator.dir\parser
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CPU_Scheduling_Simulator
@@ -111,7 +117,7 @@ build CMakeFiles/CPU_Scheduling_Simulator.dir/utils/exceptions.c.obj: C_COMPILER
 #############################################
 # Link the executable CPU_Scheduling_Simulator.exe
 
-build CPU_Scheduling_Simulator.exe: C_EXECUTABLE_LINKER__CPU_Scheduling_Simulator_Debug CMakeFiles/CPU_Scheduling_Simulator.dir/main.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/models/process.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/models/table.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/schedulers/schedulers.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/collections/priorityQueue.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/collections/compareFunctions.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/models/ganttChart.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/collections/linkedList.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/utils/exceptions.c.obj
+build CPU_Scheduling_Simulator.exe: C_EXECUTABLE_LINKER__CPU_Scheduling_Simulator_Debug CMakeFiles/CPU_Scheduling_Simulator.dir/main.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/models/process.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/models/table.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/schedulers/schedulers.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/collections/priorityQueue.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/collections/compareFunctions.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/models/ganttChart.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/collections/linkedList.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/utils/exceptions.c.obj CMakeFiles/CPU_Scheduling_Simulator.dir/parser/parser.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CPU_Scheduling_Simulator.dir
