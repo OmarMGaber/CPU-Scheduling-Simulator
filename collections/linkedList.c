@@ -90,7 +90,7 @@ void *ls_back(LinkedList *linkedList) {
     return linkedList->tail->data;
 }
 
-void *ls_getElementAt(LinkedList *ls, size_t index) {
+void *ls_get(LinkedList *ls, size_t index) {
     if (IS_EMPTY_LS(ls))
         THROW_EXCEPTION(EXIT_FAILURE, EMPTY_LINKED_LIST_ERROR_MESSAGE);
     if (index >= ls->size)
@@ -105,7 +105,7 @@ void *ls_getElementAt(LinkedList *ls, size_t index) {
     return iter->data;
 }
 
-void ls_removeElementAt(LinkedList *ls, size_t index) {
+void ls_remove(LinkedList *ls, size_t index) {
     if (IS_EMPTY_LS(ls))
         THROW_EXCEPTION(EXIT_FAILURE, EMPTY_LINKED_LIST_ERROR_MESSAGE);
     if (index >= ls->size)

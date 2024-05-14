@@ -1,0 +1,3 @@
+ERROR_LOG_FILE = "../io/error.txt"
+
+NUMBER_OF_TABS = 3

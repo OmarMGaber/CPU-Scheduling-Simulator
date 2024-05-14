@@ -8,6 +8,8 @@
 #include <malloc.h>
 #include "table.h"
 
+//#define int size_t
+
 typedef int UnitTime;
 typedef int Priority;
 
@@ -23,11 +25,12 @@ static tableInformation processInformationArray[] = {
         {"Completion Time", 17},
         {"Turnaround Time", 17},
 };
-static int lengthOfProcessInformationArray = sizeof(processInformationArray) / sizeof(processInformationArray[0]);
+
+static int infoArrayLength = sizeof(processInformationArray) / sizeof(processInformationArray[0]);
 
 typedef struct {
-    int processID;
     Priority priority;
+    int processID;
     UnitTime burstTime;
     UnitTime arrivalTime;
     UnitTime responseTime;

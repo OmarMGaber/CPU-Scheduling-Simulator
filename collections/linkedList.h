@@ -38,9 +38,9 @@ void *ls_front(LinkedList *linkedList);
 
 void *ls_back(LinkedList *linkedList);
 
-void *ls_getElementAt(LinkedList *ls, size_t index);
+void *ls_get(LinkedList *ls, size_t index);
 
-void ls_removeElementAt(LinkedList *ls, size_t index);
+void ls_remove(LinkedList *ls, size_t index);
 
 void ls_destroy(LinkedList *ls);
 

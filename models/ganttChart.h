@@ -13,12 +13,12 @@
 
 #define MAX_GANTT_CHART_WIDTH 50
 #define GANTT_CHART_ALLOCATION_MEMORY_ERROR_MESSAGE "Failed to allocate memory for Gantt Chart."
-#define getSegmentDuration(segment) (segment->segmentEnd - segment->segmentStart)
+#define getSegmentDuration(segment) (segment->end - segment->start)
 
 typedef struct {
-    char *segmentName;
-    UnitTime segmentStart;
-    UnitTime segmentEnd;
+    char *name;
+    UnitTime start;
+    UnitTime end;
 } GanttChartSegment;
 
 /**
@@ -30,7 +30,7 @@ typedef struct {
  * between the total duration of all segments and the maximum defined width of the chart.
  *
  * @param ganttChartSegments A linked list of GanttChartSegment structures.
- * @param numberOfTabs The number of tabs to be added before printing the Gantt chart.
+ * @param tabs The number of tabs to be added before printing the Gantt chart.
  *
  * @note The function uses the following helper functions: printDivisor, getTotalDuration,
  * printTimeLine, calculateSegmentLength, printAllSegments, calculateScaleFactor, and printTab.
@@ -38,6 +38,6 @@ typedef struct {
  * @warning The function assumes that the given linked list is not empty nor NULL.
  * @warning The function may not print the chart upper and lower divisors correctly (TODO).
  */
-void printGanttChart(LinkedList *ganttChartSegments, size_t numberOfTabs);
+void printGanttChart(LinkedList *ganttChartSegments, size_t tabs);
 
 #endif //CPU_SCHEDULING_SIMULATOR_GANTTCHART_H

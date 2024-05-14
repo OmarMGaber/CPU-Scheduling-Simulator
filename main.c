@@ -38,30 +38,40 @@ int main(int argc, char *argv[]) {
     if (numberOfProcesses < 0)
         THROW_EXCEPTION(EXIT_FAILURE, "Invalid number of processes");
     if (numberOfProcesses > 10000)
-        THROW_EXCEPTION(EXIT_FAILURE, "More than 10000 processes, What are you trying to do?");
+        THROW_EXCEPTION(EXIT_FAILURE, "More than 10000 processes!, What are you trying to do?");
+
+    numberOfProcesses = 10;
 
     Process *processes = (Process *) malloc(sizeof(Process) * numberOfProcesses);
     ENSURE_ALLOCATED_ELSE_REPORT_ERROR(processes, MEMORY_ALLOCATION_ERROR_MESSAGE);
 
-    initializeProcess(&processes[0], 0, 53);
-    initializeProcess(&processes[1], 0, 17);
-    initializeProcess(&processes[2], 0, 68);
-    initializeProcess(&processes[3], 0, 24);
-    initializeProcess(&processes[4], 0, 324);
+    initializeProcess(&processes[0], 0, 1);
+    initializeProcess(&processes[1], 0, 1);
+    initializeProcess(&processes[2], 0, 1);
+    initializeProcess(&processes[3], 0, 1);
+    initializeProcess(&processes[4], 0, 1);
+    initializeProcess(&processes[5], 0, 1);
+    initializeProcess(&processes[6], 0, 1);
+    initializeProcess(&processes[7], 0, 1);
+    initializeProcess(&processes[8], 0, 1);
+    initializeProcess(&processes[9], 0, 1);
 
     int waitTime = 0;
     setNeglectContextSwitching(true);
     LinkedList *ganttChart = firstComeFirstServe(processes, numberOfProcesses, sizeof(Process), &waitTime);
     printProcessTable(processes, numberOfProcesses);
 
-    printGanttChart(ganttChart, 0);
+    printGanttChart(ganttChart, 3);
 
     setNeglectContextSwitching(true);
     ganttChart = roundRobin(processes, numberOfProcesses, sizeof(Process), waitTime);
     printProcessTable(processes, numberOfProcesses);
 
-    printGanttChart(ganttChart, 0);
+    printGanttChart(ganttChart, 3);
 
     free(processes);
+
+
+    fprintf(stderr, "No errors Occurred, program exited successfully\n");
     return 0;
 }

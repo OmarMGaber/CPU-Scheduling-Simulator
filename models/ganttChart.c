@@ -5,149 +5,113 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ganttChart.h"
+#include "../utils/exceptions.h"
 #include <math.h>
+#include <stdarg.h>
 
-void printDivisor(size_t length);
+#define SEGMENT_WIDTH 3
 
-int getTotalDuration(LinkedList *ganttChartSegments);
-
-void printTimeLine(LinkedList *ganttChartSegments, int finalWidth, float scaleFactor);
-
-void calculateSegmentLength(int segmentDuration, char *segmentName);
-
-void printAllSegments(LinkedList *ganttChartSegments, int finalWidth, float scaleFactor);
-
-float calculateScaleFactor(int totalDuration, int finalWidth);
-
-void printTab(int numberOfTabs);
-
-// temporary global linked list to store the number of spaces between segments until i fix the printTimeLine function
-static LinkedList *divides;
-
-void printGanttChart(LinkedList *ganttChartSegments, size_t numberOfTabs) {
-    divides = ls_new();
-
-    int totalDuration = getTotalDuration(ganttChartSegments);
-    int finalWidth = __min(totalDuration, MAX_GANTT_CHART_WIDTH);
-
-    float scaleFactor = calculateScaleFactor(totalDuration, finalWidth);
-
-    printTab(numberOfTabs);
-    printf("Gantt Chart:\n");
-
-    printTab(numberOfTabs);
-    printf("~~~~~~~~~~~~\n");
-
-//    printTab(numberOfTabs);
-//    printDivisor(finalWidth * MAX(scaleFactor, 1) + 1);
-
-    printTab(numberOfTabs);
-    printAllSegments(ganttChartSegments, finalWidth, scaleFactor);
-
-//    printTab(numberOfTabs);
-//    printDivisor(finalWidth * MAX(scaleFactor, 1) + 1);
-
-    printTab(numberOfTabs);
-//    printTimeLine(ganttChartSegments, finalWidth, scaleFactor);
-
-    ls_destroy(divides);
+void printSegment(GanttChartSegment *segment) {
+    printf("Segment: %s, Duration: %d -> %d\n", segment->name, segment->start, segment->end);
 }
 
-void printAllSegments(LinkedList *ganttChartSegments, int finalWidth, float scaleFactor) {
-    if (IS_EMPTY_LS(ganttChartSegments))
-        return;
+void printT(size_t tab, char *format, ...) {
+    while (tab-- > 0)
+        printf("    "); // insted of \t to avoid different tab sizes in different text viewers
 
-    LinkedListNode *currentNode = ganttChartSegments->head;
-    while (currentNode != NULL) {
-        GanttChartSegment *segment = (GanttChartSegment *) currentNode->data;
-        calculateSegmentLength(2 * getSegmentDuration(segment) * scaleFactor, segment->segmentName);
-
-        currentNode = currentNode->next;
-    }
-
-    printf("|\n");
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
 }
 
-int numDigits(int number) {
-    return (int) floor(log10(number)) + 1;
-}
+int calculateScaleFactor(int totalDuration, int segments) {
+    if (segments == 0)
+        THROW_EXCEPTION(EXIT_FAILURE, "Illegal operation, division by zero.");
 
-void printTimeLine(LinkedList *ganttChartSegments, int finalWidth, float scaleFactor) {
-    if (IS_EMPTY_LS(ganttChartSegments))
-        return;
-
-    GanttChartSegment *segment = ls_front(ganttChartSegments);
-    printf("%d", segment->segmentStart);
-    while (!IS_EMPTY_LS(divides)) {
-        int spaces = (int) ls_getElementAt(divides, 0);
-        ls_popFront(divides);
-        for (int i = 0; i < spaces; ++i)
-            printf(" ");
-
-        printf("%d", segment->segmentEnd);
-
-        ls_popFront(ganttChartSegments);
-        segment = ls_front(ganttChartSegments);
-    }
-    printf("\n");
-
-    //    GanttChartSegment *segment = ls_front(ganttChartSegments);
-//    printf("%d", segment->segmentStart);
-//
-//
-//    while (segment != NULL) {
-//        int spaces = 2 * getSegmentDuration(segment) * scaleFactor - numDigits(segment->segmentEnd);
-//        for (int i = 0; i < spaces; ++i)
-//            printf(" ");
-//
-//        printf("%d", segment->segmentEnd);
-//
-//        ls_popFront(ganttChartSegments);
-//        segment = ls_front(ganttChartSegments);
-//    }
-//    printf("\n");
-}
-
-void calculateSegmentLength(int segmentDuration, char *segmentName) {
-    int spaces = segmentDuration - (int) strlen(segmentName);
-
-    spaces = __max(spaces, 2);
-    spaces /= 2;
-
-    ls_pushBack(divides, (void *) (spaces * 2 + (int) strlen(segmentName) - 1));
-
-    printf("|");
-    for (int i = 0; i < spaces; ++i)
-        printf(" ");
-
-    printf("%s", segmentName);
-
-    for (int i = 0; i < spaces; ++i)
-        printf(" ");
+    ///
 }
 
 int getTotalDuration(LinkedList *ganttChartSegments) {
-    int totalDuration = 0;
-    for (int i = 0; i < ganttChartSegments->size; ++i) {
-        GanttChartSegment *segment = (GanttChartSegment *) ls_getElementAt(ganttChartSegments, i);
-        totalDuration += getSegmentDuration(segment);
-    }
-    return totalDuration;
+    if (IS_EMPTY_LS(ganttChartSegments))
+        return 0;
+
+    return ((GanttChartSegment *) ganttChartSegments->tail->data)->end -
+           ((GanttChartSegment *) ganttChartSegments->head->data)->start;
 }
 
-void printDivisor(size_t length) {
-    for (int i = 0; i <= length; ++i)
-        printf("==");
+void printSegments(LinkedList *ganttChartSegments, size_t tabs) {
+    LinkedListNode *currentNode = ganttChartSegments->head;
+    printT(tabs + 1, "");
+    while (currentNode != NULL) {
+        GanttChartSegment *segment = (GanttChartSegment *) currentNode->data;
+
+        printf("|%*s%s%*s", SEGMENT_WIDTH, " ", segment->name, SEGMENT_WIDTH, " ");
+
+        currentNode = currentNode->next;
+    }
+    printf("|\n");
+}
+
+int calculateTotalLength(LinkedList *ganttChartSegments) {
+    int totalLength = 1;
+    LinkedListNode *iter = ganttChartSegments->head;
+    while (iter != NULL) {
+        totalLength += 1 + strlen(((GanttChartSegment *) iter->data)->name) + SEGMENT_WIDTH * 2;
+        iter = iter->next;
+    }
+
+    return totalLength;
+}
+
+void printDivisor(size_t tab, const char *c, size_t length) {
+    printT(tab, "");
+    for (int i = 0; i < length; i++)
+        printf("%s", c);
     printf("\n");
 }
 
-float calculateScaleFactor(int totalDuration, int finalWidth) {
-    if (totalDuration <= finalWidth)
-        return (float) MAX_GANTT_CHART_WIDTH / (float) totalDuration;
+void printDurations(LinkedList *ganttChartSegments, size_t tabs) {
+    LinkedListNode *currentNode = ganttChartSegments->head;
+    printT(tabs, "    %d", ((GanttChartSegment *) currentNode->data)->start);
 
-    return (float) finalWidth / (float) totalDuration;
+    while (currentNode != NULL) {
+        GanttChartSegment *segment = (GanttChartSegment *) currentNode->data;
+
+        int len = strlen(segment->name) + SEGMENT_WIDTH * 2 + 1;
+
+        printf("%*d", len, segment->end);
+
+        currentNode = currentNode->next;
+    }
+    printf("\n");
 }
 
-void printTab(int numberOfTabs) {
-    printf("%*s", numberOfTabs * 4, "");
+void printGanttChart(LinkedList *ganttChartSegments, size_t tabs) {
+    printf("\n");
+
+    tabs = __min(tabs, 10);
+
+    printT(tabs, "Gantt Chart:\n");
+    printT(tabs, "~~~~~~~~~~~~\n");
+
+    if (IS_EMPTY_LS(ganttChartSegments)) {
+        printT(tabs, "No segments to display.\n");
+        return;
+    }
+
+    int dur = getTotalDuration(ganttChartSegments);
+
+    if (dur < 0)
+        THROW_EXCEPTION(EXIT_FAILURE, "Invalid Gantt Chart segments, overlapping segments detected.");
+
+    int len = calculateTotalLength(ganttChartSegments);
+
+    printDivisor(tabs + 1, "=", len);
+    printSegments(ganttChartSegments, tabs);
+    printDivisor(tabs + 1, "-", len);
+    printDurations(ganttChartSegments, tabs);
+    printDivisor(tabs + 1, "=", len);
+
+    printT(tabs, "Total duration = %d\n\n", dur);
 }

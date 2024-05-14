@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "process.h"
 #include "table.h"
+#include "../utils/exceptions.h"
 
 void initializeProcess(Process *process, int arrivalTime, int burstTime) {
     process->processID = nextProcessID++;
@@ -19,6 +20,9 @@ void initializeProcess(Process *process, int arrivalTime, int burstTime) {
 }
 
 void printProcessRow(const Process *process) {
+//    for (int i = 0; i < infoArrayLength; ++i) {
+//        printf("| %*d ", processInformationArray[i].stringLength, *(&process->processID + i * sizeof(UnitTime)));
+//    }
     printf("| %*d | %*d | %*d | %*d | %*d | %*d | %*d |\n",
            processInformationArray[0].stringLength, process->processID,
            processInformationArray[1].stringLength, process->burstTime,
@@ -27,12 +31,21 @@ void printProcessRow(const Process *process) {
            processInformationArray[4].stringLength, process->waitingTime,
            processInformationArray[5].stringLength, process->completionTime,
            processInformationArray[6].stringLength, process->turnaroundTime);
-    printTableDivider(processInformationArray, lengthOfProcessInformationArray);
+
+    printTableDivider(processInformationArray, infoArrayLength);
 }
 
 
 void printProcessTable(const Process *processes, int numberOfProcesses) {
-    printTableHeader("Processes Details", processInformationArray, lengthOfProcessInformationArray);
+    if (infoArrayLength == 0)
+        THROW_EXCEPTION(EXIT_FAILURE, "Process Information Array is empty");
+
+    if (numberOfProcesses == 0) {
+        printf("No processes to print\n");
+        return;
+    }
+
+    printTableHeader("Processes Details", processInformationArray, infoArrayLength);
     for (int i = 0; i < numberOfProcesses; ++i)
         printProcessRow(&processes[i]);
 }

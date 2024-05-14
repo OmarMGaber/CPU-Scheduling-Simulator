@@ -14,21 +14,8 @@
 
 // priority queue function-like macros and constants
 #define DEFAULT_PRIORITY_QUEUE_CAPACITY 100
-#define getParentIndex(i) ((i - 1) / 2)
-#define getLeftChildIndex(i) ((2 * i) + 1)
-#define getRightChildIndex(i) ((2 * i) + 2)
-#define hasHigherPriority(pq, parentIndex, childIndex) pq->compare(pq->heapArray[parentIndex], pq->heapArray[childIndex]) < 0
 #define IS_EMPTY_PQ(priorityQueue) (priorityQueue->size == 0)
 #define REACHED_CAPACITY(priorityQueue) (priorityQueue->size == priorityQueue->capacity)
-#define hasParent(i) (i > 0)
-#define hasLeftChild(priorityQueue, i) (getLeftChildIndex(i) < priorityQueue->size)
-#define hasRightChild(priorityQueue, i) (getRightChildIndex(i) < priorityQueue->size)
-#define getLeftChild(priorityQueue, i) (priorityQueue->heapArray[getLeftChildIndex(i)])
-#define getRightChild(priorityQueue, i) (priorityQueue->heapArray[getRightChildIndex(i)])
-#define getParent(priorityQueue, i) (priorityQueue->heapArray[getParentIndex(i)])
-#define SWAP_VALUES(priorityQueue, i, j) {void *temp = priorityQueue->heapArray[i]; \
-                                    priorityQueue->heapArray[i] = priorityQueue->heapArray[j];               \
-                                    priorityQueue->heapArray[j] = temp;}
 
 typedef char *(*ToStringFunction)(void *);
 

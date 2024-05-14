@@ -58,11 +58,11 @@ firstComeFirstServe(Process *processes, const size_t numOfProcesses, int sizeOfE
 
         GanttChartSegment *segment = (GanttChartSegment *) malloc(sizeof(GanttChartSegment));
 
-        segment->segmentName = getProcessName(process);
-        segment->segmentStart = currentTime - process->burstTime;
-        segment->segmentEnd = currentTime;
+        segment->name = getProcessName(process);
+        segment->start = currentTime - process->burstTime;
+        segment->end = currentTime;
         ls_pushBack(ganttChartSegments, segment);
-        (neglectContextSwitching) ? currentTime += 0 : ++currentTime;
+        currentTime += (!neglectContextSwitching);
     }
 
     return ganttChartSegments;
